@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import styled, { StyledComponent } from "styled-components";
 import {fetchCoins} from "../api";
 const Title = styled.h1`
-    color: ${props => props.theme.accentColor}
+    color: ${props => props.theme.accentColor};
 `;
 const Loader = styled.div``;
 const Img = styled.img`

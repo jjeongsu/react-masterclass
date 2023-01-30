@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { ListFormat } from "typescript";
 
 interface Params {
-  [key : string]: string;//이게 왜 돼? index signature 정의하는게 뭔데?
+  [key : string]: string;
   coinId: string;
 }
 interface RouterState {
@@ -129,9 +129,8 @@ const Tab = styled.span<{isActive: boolean}>`
 function Coin(){
     const [loading,setLoading] = useState(true);
     const {coinId} = useParams<Params>();
-    //Link로 전달된 정보에 접근, state property가 unkown이 아니려면 interface로 알려줘야함
-    //url의 파라미터를 반환해줌.
-    const {state}= useLocation() as RouterState; //Coins페이지를 통해 state을 받아와야 Coin이 보여질 수 있다.
+    
+    const {state}= useLocation() as RouterState; 
     const [info, setInfo] = useState<IInfoData>();
     const [priceInfo, setPriceinfo] = useState<IPriceData>();
     const priceMatch = useMatch("/:coinId/price");
@@ -139,7 +138,6 @@ function Coin(){
     console.log(priceMatch);
     
     useEffect(()=>{
-      //크게보면 ()() 이다. 첫번째 괄호안에 함수 써주면 됨.
       (async() => {
         const infoData = await (
           await fetch(`https:\//api.coinpaprika.com/v1/coins/${coinId}`)
@@ -158,7 +156,6 @@ function Coin(){
     return(
         <Container>
             <Header>
-                {/* state이 존재할경우 name, 존재하지 않을 경우 후항. */}
                 <Title>{state?.name || "Loading.." }</Title> 
                 <Title>
                   {state?.name ? state.name: loading ? "Loading.." : info?.name}
