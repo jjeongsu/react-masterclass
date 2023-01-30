@@ -141,12 +141,6 @@ function Coin(){
     useEffect(()=>{
       //크게보면 ()() 이다. 첫번째 괄호안에 함수 써주면 됨.
       (async() => {
-        
-        /* const response = await fetch(`https://api.coinpaprika.com/v1/coins/btc-bitcoin`);
-        const json = await response.json();
-        위 두줄을 한방에
-          response = await (await fetch(`https://api.coinpaprika.com/v1/coins/btc-bitcoin`) ).json()
-        */
         const infoData = await (
           await fetch(`https:\//api.coinpaprika.com/v1/coins/${coinId}`)
         ).json();

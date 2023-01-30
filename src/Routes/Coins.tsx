@@ -84,19 +84,7 @@ const coins = [
 ];
 
 function Coins(){
-    /*
-    const [coins, setCoins] = useState<CoinInterface[]>([]);
-    const [loading, setLoading] = useState(true);
-    useEffect(() => {
-        //function을 바로 실행하기
-        (async() => {
-            const response = await fetch("https:\//api.coinpaprika.com/v1/coins");
-            const json = await response.json();
-            console.log(json);
-            setCoins(json.slice(0,100)); //100개만 자르기
-            setLoading(false);
-        })();
-    },[]); */
+
     const {isLoading, data} = useQuery<ICoin[]>("allCoins", fetchCoins);
     
     return (
