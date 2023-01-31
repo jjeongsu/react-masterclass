@@ -3,6 +3,7 @@ import './App.css';
 import styled, {createGlobalStyle, keyframes} from "styled-components";
 import Router  from './Router';
 import { RouterProvider } from 'react-router-dom';
+import {ReactQueryDevtools} from "react-query/devtools"
 //Add type
 const Box = styled.div`
   background-color: ${(props)=> props.theme.bgColor};
@@ -57,6 +58,7 @@ function App() {
     <>
       <GlobalStyle />
       <RouterProvider router={Router} />
+      <ReactQueryDevtools initialIsOpen={true}/>
     </>
   );
 }
