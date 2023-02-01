@@ -128,70 +128,68 @@ const Tab = styled.span<{isActive: boolean}>`
   }
 `;
 function Coin(){
-    const {coinId} = useParams() as IParams;    
-    const {state}= useLocation() as RouterState; 
-    const priceMatch = useMatch("/:coinId/price");
-    const chartMatch = useMatch("/:coinId/chart");
-    console.log(priceMatch);
-    
-    const {isLoading: infoLoading, data: infoData} = useQuery<IInfoData>(["info",coinId], ()=>fetchCoinInfo(coinId));
-    const {isLoading: tickerLoading, data: tickerData} = useQuery<IPriceData>(["ticker",coinId], ()=>fetchPriceInfo(coinId));
-    //모든 query는 각기 다른 고유한 key를 가지고 있어야 한다.
-    //react-query는 key를 array로 감싸서 표현한다.
-    const loading = infoLoading||tickerLoading;
-    
-    return(
-        <Container>
-            <Header>
-                <Title>{state?.name || "Loading.." }</Title> 
-                <Title>
-                  {state?.name ? state.name: loading ? "Loading.." : infoData?.name}
-                </Title>
-            </Header>
-                {loading? (<Loader>Loading</Loader>) : null}
-                {
-                  loading? (
-                    <Loader> Loading...</Loader>
-                  ) : (
-                    <>
-                      <Overview>
-                          <OverviewItem>
-                            <span>Rank:</span>
-                            <span>{infoData?.rank}</span>
-                          </OverviewItem>
-                          <OverviewItem>
-                            <span>Symbol:</span>
-                            <span>${infoData?.symbol}</span>
-                          </OverviewItem>
-                          <OverviewItem>
-                            <span>Open Source:</span>
-                            <span>{infoData?.open_source ? "Yes" : "No"}</span>
-                          </OverviewItem>
-                        </Overview>
-                        <Description>{infoData?.description}</Description>
-                        <Overview>
-                          <OverviewItem>
-                            <span>Total Suply:</span>
-                            <span>{tickerData?.total_supply}</span>
-                          </OverviewItem>
-                          <OverviewItem>
-                            <span>Max Supply:</span>
-                            <span>{tickerData?.max_supply}</span>
-                          </OverviewItem>
-                      </Overview>
-                      <Tabs>
-                        <Tab isActive={chartMatch !== null}>
-                          <Link to={`/${coinId}/chart`}>chart</Link>
-                        </Tab>
-                        <Tab isActive={priceMatch !== null}>
-                          <Link to={`/${coinId}/price`}>price</Link>
-                        </Tab>
-                      </Tabs>
-                      <Outlet />
-                    </>
-                  )
-                }
-        </Container>
+  const {coinId} = useParams() as {coinId: string};    
+  const {state}= useLocation() as RouterState; 
+  const priceMatch = useMatch("/:coinId/price");
+  const chartMatch = useMatch("/:coinId/chart");
+  console.log('코인아이디',coinId);
+  const {isLoading: infoLoading, data: infoData} = useQuery<IInfoData>(["info",coinId], ()=>fetchCoinInfo(coinId));
+  const {isLoading: tickerLoading, data: tickerData} = useQuery<IPriceData>(["ticker",coinId], ()=>fetchPriceInfo(coinId));
+  //모든 query는 각기 다른 고유한 key를 가지고 있어야 한다.
+  //react-query는 key를 array로 감싸서 표현한다.
+  const loading = infoLoading||tickerLoading;
+  
+  return(
+    <Container>
+      <Header>
+        <Title>
+          {state?.name ? state.name: loading ? "Loading.." : infoData?.name}
+      </Title>
+      </Header>
+      {loading? (<Loader>Loading</Loader>) : null}
+      {
+        loading? (
+          <Loader> Loading...</Loader>
+        ) : (
+          <>
+          <Overview>
+            <OverviewItem>
+              <span>Rank:</span>
+              <span>{infoData?.rank}</span>
+            </OverviewItem>
+            <OverviewItem>
+              <span>Symbol:</span>
+              <span>${infoData?.symbol}</span>
+            </OverviewItem>
+            <OverviewItem>
+              <span>Open Source:</span>
+              <span>{infoData?.open_source ? "Yes" : "No"}</span>
+            </OverviewItem>
+            </Overview>
+            <Description>{infoData?.description}</Description>
+          <Overview>
+            <OverviewItem>
+              <span>Total Suply:</span>
+              <span>{tickerData?.total_supply}</span>
+            </OverviewItem>
+            <OverviewItem>
+              <span>Max Supply:</span>
+              <span>{tickerData?.max_supply}</span>
+            </OverviewItem>
+          </Overview>
+          <Tabs>
+            <Tab isActive={chartMatch !== null}>
+              <Link to={`/${coinId}/chart`}>chart</Link>
+            </Tab>
+            <Tab isActive={priceMatch !== null}>
+              <Link to={`/${coinId}/price`}>price</Link>
+            </Tab>
+          </Tabs>
+          <Outlet context={{coinId}}/>
+          </>
         )
+      }
+  </Container>
+  )
 }
 export default Coin;

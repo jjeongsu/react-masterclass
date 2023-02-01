@@ -75,3 +75,45 @@ const [coins, setCoins] = useState<CoinInterface[]>([]);
 ## 사용하는 api들
 ### useQuery
 - 데이터를 get하기 위한 api. 
+
+
+
+## 그외
+cf) `{isLoading: infoLoading}`처럼 객체에 이름은 부여하는 방식을 자바스크립트에서는 Destructuring Assigment(구조분해할당)라고 부른다.
+### 구조분해할당 
+[더보기link](https://ko.javascript.info/destructuring-assignment)  
+함수에 객체나 배열을 전달해야 할 경우가 생기는데, 가끔 객체나 배열에 저장된 데이터 전체가 아닌 일부만 필요한 경우가 생긴다.
+이럴때 객체나 배열을 변수로 '분해'할수 있게 해주는 문법인 '구조분해할당'을 사용할 수 있다.
+이외에 함수의 매개변수가 많거나, 매개변수의 기본값이 필요 한 경우에서 구조분해가 진가를 발휘할 수 있다.
+
+< 객체 분해하기 >
+
+1. 기본문법
+`let {one, two} = {name: 'lee', age:25}`
+좌측에는 객체 프로퍼티의 '패턴'을, 우측에는 분해하고자 하는 객체를 넣는다.
+
+2. 예시
+```
+let info = {
+  name: 'lee',
+  age: 25,
+  height: 177
+}
+let {name, age, hegiht} = info;
+```
+info.name, info.age, info.height에 저장된 값이 상응한는 변수에 할당이 되고 순서는 중요하지 않다.
+
+3. 조금만더 복잡한 패턴
+할당 연산자의 좌측에 좀더 복잡한 패턴이 올 수 있다. 분해하려는 객체의 프로퍼티와 변수의 연결을 원하는 대로 조정할수 있다.
+객체 프로퍼티를 키와 '다른 이름'을 가진 변수에도 저장할 수 있다.
+
+`let {name: n, age: a, height: h} = info;` <br/>
+info.name을 n이라는 변수에 저장하는 식이다.
+
+만약 프로퍼티가 없는 경우를 대비하여 = 을 사용해 기본값을 설정할 수도 있다.
+```
+let info = {
+  title: "Nothing",
+};
+```
+`let {name='kim', age='70', hegiht=188} = info;`
