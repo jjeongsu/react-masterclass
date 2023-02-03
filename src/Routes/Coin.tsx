@@ -5,7 +5,7 @@ import { useLocation, useParams, Outlet, Link } from "react-router-dom";
 import styled from "styled-components";
 import { ListFormat } from "typescript";
 import { fetchCoinInfo, fetchPriceInfo } from "../api";
-
+import {Helmet} from "react-helmet";
 type IParams = {
   coinId: string;
 };
@@ -134,13 +134,26 @@ function Coin(){
   const chartMatch = useMatch("/:coinId/chart");
   console.log('코인아이디',coinId);
   const {isLoading: infoLoading, data: infoData} = useQuery<IInfoData>(["info",coinId], ()=>fetchCoinInfo(coinId));
-  const {isLoading: tickerLoading, data: tickerData} = useQuery<IPriceData>(["ticker",coinId], ()=>fetchPriceInfo(coinId));
+  const {isLoading: tickerLoading, data: tickerData} 
+    = useQuery<IPriceData>(
+      ["ticker",coinId],
+      ()=>fetchPriceInfo(coinId),
+      {
+        /* 주기적으로 데이터를 업데이트 한다(ms) */
+        refetchInterval: 5000, 
+      }
+      );
   //모든 query는 각기 다른 고유한 key를 가지고 있어야 한다.
   //react-query는 key를 array로 감싸서 표현한다.
   const loading = infoLoading||tickerLoading;
   
   return(
     <Container>
+      <Helmet>
+        <title>
+          {state?.name ? state.name: loading ? "Loading.." : infoData?.name}
+        </title>
+      </Helmet>
       <Header>
         <Title>
           {state?.name ? state.name: loading ? "Loading.." : infoData?.name}
@@ -162,8 +175,8 @@ function Coin(){
               <span>${infoData?.symbol}</span>
             </OverviewItem>
             <OverviewItem>
-              <span>Open Source:</span>
-              <span>{infoData?.open_source ? "Yes" : "No"}</span>
+              <span>Price :</span>
+              <span>{tickerData?.quotes.USD.price.toFixed(3) ? "Yes" : "No"}</span>
             </OverviewItem>
             </Overview>
             <Description>{infoData?.description}</Description>
