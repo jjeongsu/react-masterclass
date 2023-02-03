@@ -29,3 +29,4 @@ const {coinId} = useParams() as {coinId: string};
 
 단순 오타때문에 한참을 해맸다,,ㅠㅠ
 
+

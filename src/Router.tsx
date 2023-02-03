@@ -4,6 +4,7 @@ import Chart from "./Routes/Chart";
 import Coin from './Routes/Coin';
 import Coins from './Routes/Coins';
 import Price from "./Routes/Price";
+import Error from "./Components/Error";
 const Router = createBrowserRouter([
 	{
 		path:"/",
@@ -21,7 +22,9 @@ const Router = createBrowserRouter([
 				path: "price",
 				element: <Price />
 			}
-		]
+		],
+		errorElement: <Error />
+		
 	}
 ])
 export default Router;

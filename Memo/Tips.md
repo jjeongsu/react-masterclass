@@ -10,3 +10,6 @@ https://www.youtube.com/watch?v=Wn7j5dfbJF4
 JSON데이터를 타입스크립트 타입으로 빠르게 변환시켜주는 사이트
 https://app.quicktype.io/?l=ts
 http://json2ts.com/
+
+react18버전일때 타입스크립트에서 react-query못불러올때 모듈설치
+https://velog.io/@kkyes1210/Error-No-QueryClient-set-use-QueryClientProvider-to-set-one

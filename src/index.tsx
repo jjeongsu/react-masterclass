@@ -5,6 +5,8 @@ import { ThemeProvider } from 'styled-components';
 import { Theme } from './theme';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
+
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
@@ -16,6 +18,5 @@ root.render(
         <App />
       </ThemeProvider>
     </QueryClientProvider>
-    
   </React.StrictMode>
 );
