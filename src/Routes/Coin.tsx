@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { useMatch, } from "react-router-dom";
-import { useLocation, useParams, Outlet, Link } from "react-router-dom";
+import { useLocation, useParams, Outlet, Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { ListFormat } from "typescript";
 import { fetchCoinInfo, fetchPriceInfo } from "../api";
@@ -108,13 +108,13 @@ const Header = styled.header`
 const Title = styled.h1`
     color: ${(props) => props.theme.accentColor}
 `;
-const Tabs = styled.div`
+export const Tabs = styled.div`
   display: grid;
   grid-template-columns: repeat(2,1fr);
   margin: 25px 0px;
   gap: 10px;
 `;
-const Tab = styled.span<{isActive: boolean}>`
+export const Tab = styled.span<{isActive: boolean}>`
   text-align: center;
   text-transform: uppercase;
   font-size: 12px;
@@ -126,6 +126,12 @@ const Tab = styled.span<{isActive: boolean}>`
   a{
     display: block;
   }
+`;
+const BackBtn = styled.button`
+  float: left;
+  text-align: center;
+  border-radius: 50%;
+
 `;
 function Coin(){
   const {coinId} = useParams() as {coinId: string};    
@@ -146,7 +152,10 @@ function Coin(){
   //모든 query는 각기 다른 고유한 key를 가지고 있어야 한다.
   //react-query는 key를 array로 감싸서 표현한다.
   const loading = infoLoading||tickerLoading;
-  
+  const navigate = useNavigate();
+  const handleOnClick = () =>{
+    navigate('/');
+  }
   return(
     <Container>
       <Helmet>
@@ -154,10 +163,11 @@ function Coin(){
           {state?.name ? state.name: loading ? "Loading.." : infoData?.name}
         </title>
       </Helmet>
+      <BackBtn onClick = {handleOnClick}> Back </BackBtn>
       <Header>
         <Title>
           {state?.name ? state.name: loading ? "Loading.." : infoData?.name}
-      </Title>
+        </Title>
       </Header>
       {loading? (<Loader>Loading</Loader>) : null}
       {

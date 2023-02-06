@@ -5,6 +5,8 @@ import Coin from './Routes/Coin';
 import Coins from './Routes/Coins';
 import Price from "./Routes/Price";
 import Error from "./Components/Error";
+import LineChart from "./Components/Chart_line";
+import CandlestickChart from "./Components/Chart_candlestick";
 const Router = createBrowserRouter([
 	{
 		path:"/",
@@ -16,7 +18,17 @@ const Router = createBrowserRouter([
 		children: [
 			{
 				path: "chart",
-				element: <Chart />
+				element: <Chart />,
+				children: [
+					{
+						path: "line",
+						element: <LineChart />
+					},
+					{
+						path: "candlestick",
+						element: <CandlestickChart />
+					}
+				]
 			},
 			{
 				path: "price",
