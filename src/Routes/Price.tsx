@@ -50,7 +50,7 @@ function Price(){
     <InfoTab> 1시간전 대비 : {priceData.percent_change_1h.toFixed(3)} %</InfoTab>
     <InfoTab> 24시간전 대비 : {priceData.percent_change_24h.toFixed(3)} %</InfoTab>
     <InfoTab> 일주일전 대비 : {priceData.percent_change_7d.toFixed(3)} %</InfoTab>
-  </div>    
+  </div>
   )
 }
 export default Price;

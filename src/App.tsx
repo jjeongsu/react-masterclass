@@ -1,9 +1,13 @@
 
 import './App.css';
-import styled, {createGlobalStyle, keyframes} from "styled-components";
+import styled, {createGlobalStyle, keyframes, ThemeProvider} from "styled-components";
 import Router  from './Router';
 import { RouterProvider } from 'react-router-dom';
 import {ReactQueryDevtools} from "react-query/devtools"
+import { DarkTheme, LightTheme, Theme } from './theme';
+import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { isDarkAtom } from './Routes/atoms';
 //Add type
 const Box = styled.div`
   background-color: ${(props)=> props.theme.bgColor};
@@ -54,13 +58,23 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function App() {
+  // const [isDark, setIsDark] = useState(false);
+  // const toggle = () => {
+  //setIsDark( current => !current);
+  /**
+     * When you want to use the current state is better to use the function. If you use a function React will put the previous value there.
+     * Using !isDark might cause a bug because isDark might change from somewhere else.
+     */
+  //}
+  const isDark = useRecoilValue(isDarkAtom);
   return (
-    <>
+    <><ThemeProvider theme={isDark?DarkTheme:LightTheme}>
       <GlobalStyle />
       <RouterProvider router={Router} />
       <ReactQueryDevtools initialIsOpen={true}/>
-    </>
+    </ThemeProvider></>
   );
 }
 
 export default App;
+

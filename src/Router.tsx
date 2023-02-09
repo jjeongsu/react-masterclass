@@ -7,6 +7,11 @@ import Price from "./Routes/Price";
 import Error from "./Components/Error";
 import LineChart from "./Components/Chart_line";
 import CandlestickChart from "./Components/Chart_candlestick";
+
+// interface IRouterProps {
+// 	toggle: () => void;
+// }
+
 const Router = createBrowserRouter([
 	{
 		path:"/",
