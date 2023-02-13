@@ -53,7 +53,16 @@ function TodoList(){
           placeholder= "Last Name" />
         <span>{errors?.username?.message}</span>
         <input type="text" 
-          {...register("username",  {required: "write here", minLength: 10})} 
+          {...register("username",  {
+            required: "write here", 
+            minLength: 10, 
+            validate: {
+              noNico: (value) => 
+                value.includes("nico") ? "no nico allowed" : true,
+              noElle : (value) => 
+                value.includes("elle") ? "no elle allowed" : true,
+            }
+          })} 
           placeholder= "User Name" />
         <span>{errors?.password?.message}</span>
         <input type="text" 
