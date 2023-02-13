@@ -10,7 +10,11 @@ interface IForm {
   password1: string;
 }; //form의 데이터에 관한 인터페이스
 function TodoList(){
-  const {register, watch, handleSubmit, formState:{errors}} = useForm<IForm>();
+  const {register, watch, handleSubmit, formState:{errors}} = useForm<IForm>({
+    defaultValues: {
+      email: "@naver.com",
+    }
+  });
   const onValid =(data:any) => {
     console.log(data);
   }
