@@ -76,16 +76,21 @@ form으로 제출하는 녀셕을 아주 손쉽게 만들어 주는 녀석
 ### 사용하기
 
 ```
- const {register, watch, handleSubmit, formState} = useForm();
+ const {register, watch, handleSubmit, formState:{errors}, setValue} = useForm();
   /*
   register 함수 : 
   watch :form의 입력값이 변화를 볼수 잇음.
   handleSubmit : validation 담당.
   formState : 
     formState.errors : 에러 확인
+  setValue : 필드의 값을 동적으로 설정한다.
+    ex) setValue('name','hello');
+    ex) onClick={()=>setValue('name','')};
   */
 ```
-
+### reset();
+`reset()`은 form전체를 리셋시킨다. -> 여러필드를 동시에 비울때 setValue대신 사용하면 좋음  
+`reset({email: ""})`은 form에서 특정 필드만 리셋시킨다. 
 ### required
 '이거는 그냥 html input에서 제공해 주는 기능 아닌가요?'할수있다.
 그러나 누군가 아주 나쁜 마음을 먹은 사람이 개발자도구를 사용해서 당신의 html코드에 접근해 required를 지워버린다면?
