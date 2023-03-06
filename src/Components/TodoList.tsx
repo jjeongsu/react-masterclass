@@ -46,8 +46,6 @@ const Header = styled.h1`
   font-size: 30px;
   font-weight: 700;
 `;
-
-
 function ToDoList() {
   const toDos = useRecoilValue(toDoState);
   const [hue, setHue] = useState(340);

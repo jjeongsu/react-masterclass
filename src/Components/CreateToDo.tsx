@@ -44,7 +44,7 @@ const TodoInput = styled.input`
   }
 `
 function CreateToDo() {
-  const {register, handleSubmit } =useForm<IForm>();
+  const {register, handleSubmit, setValue } =useForm<IForm>();
   const setToDos = useSetRecoilState(toDoState);
   const handleValid = ({ toDo }: IForm) => {
     setToDos((oldToDos) => [
@@ -71,6 +71,3 @@ function CreateToDo() {
 }
 export default CreateToDo;
 
-function setValue(arg0: string, arg1: string) {
-  throw new Error("Function not implemented.");
-}
