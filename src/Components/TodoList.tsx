@@ -48,7 +48,7 @@ const Header = styled.h1`
 `;
 function ToDoList() {
   const toDos = useRecoilValue(toDoState);
-  const [hue, setHue] = useState(340);
+  console.log(toDos);
   return (
     <FullScreen>      
       <TotalContainer>
@@ -57,7 +57,7 @@ function ToDoList() {
         <ListContainer>
           <ul>
             {toDos.map((toDo) => (
-              <ToDo {...toDo} />
+              <ToDo key={toDo.id} {...toDo} />
               ))}
           </ul>
         </ListContainer>
