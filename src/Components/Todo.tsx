@@ -5,8 +5,6 @@ const List = styled.li`
   
 `;
 
-
-
 /**
  * Todos의 값을 변경하기
  * 중요한점은 state를 mutate하지말고 새로운 state를 만들어야 한다는 것.

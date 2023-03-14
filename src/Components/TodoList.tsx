@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { atom, useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { toDoState } from "../atoms";
+import { toDoSelector, toDoState } from "../atoms";
 import CreateToDo from "./CreateToDo";
 import ToDo from "./ToDo";
 const FullScreen = styled.div`
@@ -47,16 +47,35 @@ const Header = styled.h1`
   font-weight: 700;
 `;
 function ToDoList() {
-  const toDos = useRecoilValue(toDoState);
-  console.log(toDos);
+  //const toDos = useRecoilValue(toDoState);
+  //const selectorOutput = useRecoilValue(toDoSelector);
+  
+  const [toDo, doing, done] = useRecoilValue(toDoSelector);
+  
+
   return (
     <FullScreen>      
       <TotalContainer>
         <Header>Todo</Header>
         <CreateToDo />
         <ListContainer>
+          <h2>Todo</h2>
           <ul>
-            {toDos.map((toDo) => (
+            {toDo.map((toDo) => (
+              <ToDo key={toDo.id} {...toDo} />
+              ))}
+          </ul>
+          <hr />
+          <h2>Doing</h2>
+          <ul>
+            {doing.map((toDo) => (
+              <ToDo key={toDo.id} {...toDo} />
+              ))}
+          </ul>
+          <hr/>
+          <h2>Done</h2>
+          <ul>
+            {done.map((toDo) => (
               <ToDo key={toDo.id} {...toDo} />
               ))}
           </ul>
