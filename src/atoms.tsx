@@ -1,9 +1,18 @@
 import { atom, selector } from "recoil";
 
+type categories = "TO_DO" | "DOING" | "DONE"; // 복붙피하기
+
+//create Enumerable
+export enum Categories {
+  "TO_DO" = "TO_DO",
+  "DOING" = "DOING",
+  "DONE" = "DONE",
+}
+
 export interface IToDo {
   text: string;
   id: number;
-  category: "TO_DO" | "DOING" | "DONE";
+  category: Categories;
 }
 
 export const toDoState = atom<IToDo[]>({
@@ -13,9 +22,9 @@ export const toDoState = atom<IToDo[]>({
 
 //한번에 하나의 카테고리만 렌더링하려고 함.
 //사용자가 현재 지정한 카테고리를 알려준다.
-export const categoryState = atom ({
+export const categoryState = atom<Categories>({
   key: "category",
-  default: "TO_DO",
+  default: Categories.TO_DO, //enum 사용법 
 })
 
 
@@ -27,9 +36,7 @@ export const toDoSelector = selector({
   get: ({get}) => { //get이 있어야 atom을 받을 수 있다.
     const toDos = get(toDoState);
     const category = get(categoryState);
-    if(category === "TO_DO") return toDos.filter(toDo => toDo.category === "TO_DO")
-    if(category === "DOING") return toDos.filter(toDo => toDo.category === "DOING")
-    if(category === "DONE") return toDos.filter(toDo => toDo.category === "DONE")
+    return toDos.filter((todo) => todo.category === category); //사용자가 보고자 지정한 카테고리와 todo의 카테고리가 같은것만 리턴한다.
   }
 })
 

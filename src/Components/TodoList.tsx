@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { atom, useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { categoryState, toDoSelector, toDoState } from "../atoms";
+import { Categories, categoryState, toDoSelector, toDoState } from "../atoms";
 import CreateToDo from "./CreateToDo";
 import ToDo from "./ToDo";
 const FullScreen = styled.div`
@@ -53,7 +53,7 @@ function ToDoList() {
   const toDos = useRecoilValue(toDoSelector);//toDoSelector는 3개의 배열을 담은 하나의 배열을 반환
   const [category, setCategory]= useRecoilState(categoryState);
   const onInput = (event: React.FormEvent<HTMLSelectElement>) => {
-    setCategory(event.currentTarget.value);
+    setCategory(event.currentTarget.value as any); // as any 로 일단 회피,,리팩토링하기
   }
   return (
     <FullScreen>      
@@ -61,9 +61,9 @@ function ToDoList() {
         <Header>Todo</Header>
         <CreateToDo />
         <select value = {category} onInput={onInput}>
-          <option value="TO_DO "> TODO</option>
-          <option value="DOING"> DOING</option>
-          <option value="DONE"> DONE</option>
+          <option value={Categories.TO_DO}> TODO</option>
+          <option value={Categories.DOING}> DOING</option>
+          <option value={Categories.DONE}> DONE</option>
         </select>
         <ListContainer>
           {toDos?.map((todo) => <ToDo key={todo.id} {...todo}/>)}
