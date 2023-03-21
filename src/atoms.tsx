@@ -1,4 +1,5 @@
 import { atom, selector } from "recoil";
+import { recoilPersist } from "recoil-persist";
 
 type categories = "TO_DO" | "DOING" | "DONE"; // 복붙피하기
 
@@ -15,9 +16,15 @@ export interface IToDo {
   category: Categories;
 }
 
+const {persistAtom} = recoilPersist({ //대박,,,자동으로 atom을 로컬에 저장, 삭제해줌,,
+  key: 'todoLocal', //로컬스토리지에 저장할 키값.
+  storage: localStorage,
+})
+
 export const toDoState = atom<IToDo[]>({
   key: "toDo",
   default: [],
+  effects_UNSTABLE: [persistAtom],
 });
 
 //한번에 하나의 카테고리만 렌더링하려고 함.

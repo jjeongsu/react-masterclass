@@ -31,12 +31,24 @@ function ToDo({text, category, id}:IToDo){
       ];
     });
   }
-  
+  const onDeleteClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const {
+      currentTarget: {name}
+    } = e;
+    setToDos((oldTodos) => {
+      const targetIndex = oldTodos.findIndex(todo => todo.id === id);
+      return [
+        ...oldTodos.slice(0, targetIndex),
+        ...oldTodos.slice(targetIndex + 1)
+      ];
+    });
+  }
   return (
   <li >{text } 
     {category !== Categories.TO_DO && <button name={Categories.TO_DO} onClick={onClick}>DOING </button>}
     {category !== Categories.DOING &&  <button name={Categories.DOING} onClick={onClick}>DONE </button>}
     {category !== Categories.DONE && <button name={Categories.DONE} onClick={onClick}>TO_DO </button>}
+    <button name="DELETE" onClick={onDeleteClick}> 삭제하기 </button>
   </li>);
 }
 
