@@ -20,4 +20,9 @@ export const hourSelector = selector<number>({ //selector의 리턴타입은 넘
   },
 })
 
+export const toDoState = atom({
+  key:"toDo",
+  default: ["a", "b", "c", "d", "e","f"],
+})
+
 

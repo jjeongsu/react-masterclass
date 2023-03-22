@@ -1,28 +1,80 @@
-import { useRecoilState, useRecoilValue } from "recoil";
-import { createGlobalStyle } from "styled-components";
-import { hourSelector, minuteState } from "./atoms";
+import { DragDropContext, Draggable, Droppable, DropResult } from "@hello-pangea/dnd";
+import { useRecoilState } from "recoil";
+import styled from "styled-components";
+import { toDoState } from "./atoms";
 
 
-function App(){
-  const [minutes, setMinutes] = useRecoilState(minuteState);
-  const [hours, setHours] = useRecoilState(hourSelector);
-  //useRecoilState(selector)
-  //hours -> selector의 get으로 부터 온다.
-  //setHours -> selector의 set으로 부터 온다. set을 실행시키는 함수이다.
-  
-  const onMinutesChange = (event:React.FormEvent<HTMLInputElement>) => {
-    setMinutes(+event.currentTarget.value); //+는 string을 number로 바꿔줌 ex)+"1"은 1
-  };
-  const onHoursChange = (event:React.FormEvent<HTMLInputElement>) => {
-    setHours(+event.currentTarget.value); //시간단위의 값이 newValue에 전달된다.
-  }
-
+function App(){  
+  const [todo, setTodo]=useRecoilState(toDoState);
+  //드래그가 끝났을 때 실행되는 함수
+  const onDragEnd = ({destination, source, draggableId}: DropResult) => {
+    if(!destination) return;
+    //source index의 요소를 dest index로 옶기기
+    setTodo((oldTodos) => {
+      const newTodo = [...oldTodos]; //copy! 중요
+      newTodo.splice( source?.index, 1); //1. delete item
+      newTodo.splice(destination?.index, 0, draggableId); //2. add item
+      return newTodo;
+    });
+  }; 
   return (
-    <div>
-      <input value={minutes} onChange={onMinutesChange} type="number" placeholder="Minutes" />
-      <input value={hours} onChange={onHoursChange} type="number" placeholder="Hours" />
-    </div>
+    <DragDropContext onDragEnd={onDragEnd}> 
+      <Wrapper>
+        <Boards>
+        <Droppable droppableId="one">
+          {(provided) =>
+            (<Board ref={provided.innerRef} {...provided.droppableProps}> 
+              {todo.map((todo, index) => (
+                <Draggable key={todo} draggableId={todo} index={index}>
+                {(provided) => (
+                  <Card 
+                    ref={provided.innerRef} 
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps} >
+                    {todo}
+                  </Card>
+                )}
+              </Draggable>
+              ))}
+              {provided.placeholder}
+            </Board>)
+          }
+        </Droppable>
+        </Boards>
+      </Wrapper>
+    </DragDropContext>
   )
 }
 
 export default App;
+
+const Wrapper = styled.div`
+  display: flex;
+  max-width: 480px;
+  width: 100%;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`;
+
+const Boards = styled.div`
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(1, 1fr);
+`;
+
+const Board = styled.div`
+  padding: 20px 10px;
+  padding-top: 30px;
+  background-color: ${(props) => props.theme.boardColor};
+  border-radius: 5px;
+  min-height: 200px;
+`;
+
+const Card = styled.div`
+  border-radius: 5px;
+  margin-bottom: 5px;
+  padding: 10px 10px;
+  background-color: ${(props) => props.theme.cardColor};
+`;
