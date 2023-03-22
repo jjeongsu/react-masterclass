@@ -2,6 +2,7 @@ import { DragDropContext, Draggable, Droppable, DropResult } from "@hello-pangea
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { toDoState } from "./atoms";
+import DraggableCard from "./Components/DraggableCard";
 
 
 function App(){  
@@ -25,16 +26,7 @@ function App(){
           {(provided) =>
             (<Board ref={provided.innerRef} {...provided.droppableProps}> 
               {todo.map((todo, index) => (
-                <Draggable key={todo} draggableId={todo} index={index}>
-                {(provided) => (
-                  <Card 
-                    ref={provided.innerRef} 
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps} >
-                    {todo}
-                  </Card>
-                )}
-              </Draggable>
+                <DraggableCard key={todo} index={index} todo={todo} />
               ))}
               {provided.placeholder}
             </Board>)
@@ -72,9 +64,4 @@ const Board = styled.div`
   min-height: 200px;
 `;
 
-const Card = styled.div`
-  border-radius: 5px;
-  margin-bottom: 5px;
-  padding: 10px 10px;
-  background-color: ${(props) => props.theme.cardColor};
-`;
+
