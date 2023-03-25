@@ -22,16 +22,9 @@ function App(){
     <DragDropContext onDragEnd={onDragEnd}> 
       <Wrapper>
         <Boards>
-        <Droppable droppableId="one">
-          {(provided) =>
-            (<Board ref={provided.innerRef} {...provided.droppableProps}> 
-              {todo.map((todo, index) => (
-                <DraggableCard key={todo} index={index} todo={todo} />
-              ))}
-              {provided.placeholder}
-            </Board>)
-          }
-        </Droppable>
+        {Object.keys(todo).map((boardId) => (
+            <Board boardId={boardId} key={boardId} toDos={todo[boardId]} />
+          ))}
         </Boards>
       </Wrapper>
     </DragDropContext>
