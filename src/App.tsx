@@ -2,7 +2,6 @@ import { DragDropContext, Draggable, Droppable, DropResult } from "@hello-pangea
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { toDoState } from "./atoms";
-import DraggableCard from "./Components/DraggableCard";
 
 
 function App(){  
@@ -11,19 +10,19 @@ function App(){
   const onDragEnd = ({destination, source, draggableId}: DropResult) => {
     if(!destination) return;
     //source index의 요소를 dest index로 옶기기
-    setTodo((oldTodos) => {
-      const newTodo = [...oldTodos]; //copy! 중요
-      newTodo.splice( source?.index, 1); //1. delete item
-      newTodo.splice(destination?.index, 0, draggableId); //2. add item
-      return newTodo;
-    });
+    // setTodo((oldTodos) => {
+    //   const newTodo = [...oldTodos]; //copy! 중요
+    //   newTodo.splice( source?.index, 1); //1. delete item
+    //   newTodo.splice(destination?.index, 0, draggableId); //2. add item
+    //   return newTodo;
+    // });
   }; 
   return (
     <DragDropContext onDragEnd={onDragEnd}> 
       <Wrapper>
         <Boards>
-        {Object.keys(todo).map((boardId) => (
-            <Board boardId={boardId} key={boardId} toDos={todo[boardId]} />
+            {Object.keys(todo).map((boardId) => (
+            <Board  boarderId={boardId} toDos={todo[boardId]} />
           ))}
         </Boards>
       </Wrapper>
@@ -47,6 +46,7 @@ const Boards = styled.div`
   display: grid;
   width: 100%;
   grid-template-columns: repeat(1, 1fr);
+  gap: 10;
 `;
 
 const Board = styled.div`

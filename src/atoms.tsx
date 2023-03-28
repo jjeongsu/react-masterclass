@@ -20,9 +20,18 @@ export const hourSelector = selector<number>({ //selector의 리턴타입은 넘
   },
 })
 
-export const toDoState = atom({
+interface ITodoState {
+  [key : string] :string[];
+}
+
+export const toDoState = atom<ITodoState>({
   key:"toDo",
-  default: ["a", "b", "c", "d", "e","f"],
+  default: {
+    //각 보드가 가질 아이디와 배열을 포함한다.
+    to_do:["a","b",],
+    doing:["c","d"],
+    done:["e","f"],
+  },
 })
 
 
