@@ -3,7 +3,7 @@ import { atom, useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { Categories, categoryState, toDoSelector, toDoState } from "../atoms";
 import CreateToDo from "./CreateToDo";
-import ToDo from "./ToDo";
+import ToDo from "./Todo";
 const FullScreen = styled.div`
   height: 100vh;
   width: 100wh;
