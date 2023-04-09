@@ -4,7 +4,7 @@
 ## 사용하는 이유?
 
 - 데이터를 받아 오는데 필요한 state,fetch와 컴포넌트의 분리
-  - 니꼬쌤은 api 관련된 코드를 api.ts 파일에 따로 분리
+  -  api 관련된 코드를 api.ts 파일에 따로 분리
 
 ## 사용방법
 0. react 버전이 18일경우, `npm i @tanstack/react-query`로 모듈설치

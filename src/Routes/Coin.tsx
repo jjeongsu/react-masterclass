@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useQuery } from "react-query";
+
 import { useMatch, } from "react-router-dom";
 import { useLocation, useParams, Outlet, Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { ListFormat } from "typescript";
 import { fetchCoinInfo, fetchPriceInfo } from "../api";
 import {Helmet} from "react-helmet";
+import { useQuery } from "react-query";
 type IParams = {
   coinId: string;
 };
