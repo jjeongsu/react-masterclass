@@ -85,6 +85,16 @@ const coins = [
         type: "token",
     },
 ];
+const ThemeBtn = styled.button`
+  width: 100px;
+  height: 50px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border-radius: 20px;
+  border: none;
+  color: white;
+`
 
 function Coins(){
 
@@ -98,7 +108,7 @@ function Coins(){
       </Helmet>
       <Header>
         <Title>코인</Title>
-				<button onClick ={ toggleDarkAtom}> toggle Mode</button>
+				<ThemeBtn onClick ={ toggleDarkAtom}> Theme Change</ThemeBtn>
       </Header>
         {isLoading ? (<Loader>Loading</Loader>) : (
           <CoinsList >
