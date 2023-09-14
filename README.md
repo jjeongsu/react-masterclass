@@ -20,9 +20,10 @@
 
 ### 코인 tracker
 
-<img width="531" alt="coin-mainpage" src="https://github.com/jjeongsu/react-masterclass/assets/92345556/6a445d96-f334-470b-91a8-f93080964d54">
-<img width="534" alt="coin-mainpage-light" src="https://github.com/jjeongsu/react-masterclass/assets/92345556/c8bdd5bb-a9e1-4c43-b685-7a98f95790e2">
-<img width="532" alt="coin-details" src="https://github.com/jjeongsu/react-masterclass/assets/92345556/c6bb5578-fc67-4433-9e4c-05fd6c32ddb1">
+<img width="200" alt="coin-mainpage" src="https://github.com/jjeongsu/react-masterclass/assets/92345556/6a445d96-f334-470b-91a8-f93080964d54">
+<img width="200" alt="coin-mainpage-light" src="https://github.com/jjeongsu/react-masterclass/assets/92345556/c8bdd5bb-a9e1-4c43-b685-7a98f95790e2">
+<img width="200" alt="coin-details" src="https://github.com/jjeongsu/react-masterclass/assets/92345556/c6bb5578-fc67-4433-9e4c-05fd6c32ddb1">  
+  
 - react-query를 활용한 data patching, caching
 - styled-componet global style, theme 적용
 - react-apexcharts 라이브러리를 활용한 데이터 시각화
